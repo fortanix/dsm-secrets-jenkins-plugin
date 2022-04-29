@@ -1,0 +1,6 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:c="/lib/credentials">
+    <f:section title="Fortanix DSM Secrets">
+        <f:property field="configuration" header="Fortanix DSM Secrets Configuration" />
+    </f:section>
+</j:jelly>

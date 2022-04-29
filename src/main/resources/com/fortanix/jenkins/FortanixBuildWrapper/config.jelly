@@ -1,0 +1,9 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form">
+    <f:section title="Fortanix DSM Secrets">
+        <f:property field="configuration" header="Fortanix DSM Secrets Configuration" />
+    </f:section>
+    <f:entry>
+        <f:repeatableProperty field="fortanixSecrets" minimum="0" header="Secret" add="Add a secret"></f:repeatableProperty>
+    </f:entry>
+</j:jelly>
