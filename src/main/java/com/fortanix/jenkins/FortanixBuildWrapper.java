@@ -121,7 +121,7 @@ public class FortanixBuildWrapper extends SimpleBuildWrapper {
             for (FortanixSecret secret : this.fortanixSecrets) {
                 String secretVal = secretService.getSecret(secret.getPath());
                 String env = secret.getEnvVar();
-                LOGGER.log(Level.INFO, "Env: "+env+", Val: "+secretVal);
+                LOGGER.log(Level.INFO, "Env: "+env);
                 context.env(env, secretVal);
             }
             secretService.shutdown();
