@@ -41,7 +41,7 @@ public class ClientCredentials extends BaseStandardCredentials implements Fortan
         this.apiEndpoint = apiEndpoint;
     }
 
-    public String getEndpoint() {
+    public String getApiEndpoint() {
         return apiEndpoint;
     }
 
