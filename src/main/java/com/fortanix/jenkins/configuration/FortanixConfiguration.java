@@ -45,12 +45,12 @@ public class FortanixConfiguration extends AbstractDescribableImpl<FortanixConfi
         this.ftxCredentialId = ftxCredentialId;
     }
 
-    public String getFortanixCredentialId() {
+    public String getftxCredentialId() {
         return ftxCredentialId;
     }
 
     @DataBoundSetter
-    public void setFortanixCredentialId(String ftxCredentialId) {
+    public void setFtxCredentialId(String ftxCredentialId) {
         this.ftxCredentialId = ftxCredentialId;
     }
 
@@ -67,10 +67,10 @@ public class FortanixConfiguration extends AbstractDescribableImpl<FortanixConfi
             LOGGER.log(Level.ALL, "Return This: "+ftxCredentialId);
             return this;
         }
-        FortanixConfiguration result = new FortanixConfiguration(this.getFortanixCredentialId());
-        LOGGER.log(Level.ALL, "Credential ID: "+result.getFortanixCredentialId());
-        if (StringUtils.isBlank(result.getFortanixCredentialId())) {
-            result.setFortanixCredentialId(parent.getFortanixCredentialId());
+        FortanixConfiguration result = new FortanixConfiguration(this.getftxCredentialId());
+        LOGGER.log(Level.ALL, "Credential ID: "+result.getftxCredentialId());
+        if (StringUtils.isBlank(result.getftxCredentialId())) {
+            result.setFtxCredentialId(parent.getftxCredentialId());
         }
         return result;
     }

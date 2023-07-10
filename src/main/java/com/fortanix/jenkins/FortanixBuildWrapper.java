@@ -96,7 +96,7 @@ public class FortanixBuildWrapper extends SimpleBuildWrapper {
 
 
     private FortanixCredentials getCredentials(Run build) {
-        String id = getConfiguration().getFortanixCredentialId();
+        String id = getConfiguration().getftxCredentialId();
         LOGGER.log(Level.INFO, "Get Credentials ID: "+ id);
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException("The credential id was not configured - please specify the credentials to use.");
@@ -121,7 +121,7 @@ public class FortanixBuildWrapper extends SimpleBuildWrapper {
             for (FortanixSecret secret : this.fortanixSecrets) {
                 String secretVal = secretService.getSecret(secret.getPath());
                 String env = secret.getEnvVar();
-                LOGGER.log(Level.INFO, "Env: "+env+", Val: "+secretVal);
+                LOGGER.log(Level.INFO, "Env: "+env);
                 context.env(env, secretVal);
             }
             secretService.shutdown();
