@@ -8,11 +8,9 @@ package com.fortanix.jenkins.configuration;
 
 import hudson.ExtensionPoint;
 import hudson.model.Item;
-
 import javax.annotation.Nonnull;
 
 public abstract class FortanixConfigResolver implements ExtensionPoint {
 
-    public abstract @Nonnull
-    FortanixConfiguration forJob(@Nonnull Item job);
+    public abstract @Nonnull FortanixConfiguration forJob(@Nonnull Item job);
 }

@@ -8,14 +8,13 @@ package com.fortanix.jenkins.configuration;
 
 import hudson.Extension;
 import hudson.model.Item;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.annotation.Nonnull;
 import jenkins.model.GlobalConfiguration;
 import net.sf.json.JSONObject;
 import org.kohsuke.stapler.DataBoundSetter;
 import org.kohsuke.stapler.StaplerRequest;
-
-import javax.annotation.Nonnull;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 @Extension
 public class FortanixGlobalConfiguration extends GlobalConfiguration {
@@ -59,8 +58,9 @@ public class FortanixGlobalConfiguration extends GlobalConfiguration {
             LOGGER.log(Level.ALL, "forJob");
             return FortanixGlobalConfiguration.get().getConfiguration();
         }
+
         private static final Logger LOGGER = Logger.getLogger(ForJob.class.getName());
     }
-    
+
     private static final Logger LOGGER = Logger.getLogger(FortanixGlobalConfiguration.class.getName());
 }

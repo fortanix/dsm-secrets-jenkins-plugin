@@ -8,34 +8,32 @@ package com.fortanix.jenkins.credentials;
 
 import com.cloudbees.plugins.credentials.CredentialsScope;
 import com.cloudbees.plugins.credentials.impl.BaseStandardCredentials;
-
 import com.fortanix.sdkms.v1.ApiClient;
-import com.fortanix.sdkms.v1.ApiException;
 import com.fortanix.sdkms.v1.Configuration;
-
 import hudson.Extension;
 import hudson.util.Secret;
-import org.kohsuke.stapler.DataBoundConstructor;
-
-import javax.annotation.CheckForNull;
-import javax.annotation.Nonnull;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.CheckForNull;
+import javax.annotation.Nonnull;
+import org.kohsuke.stapler.DataBoundConstructor;
 
 /**
  * Client Credentials class used for authenticating to Fortanix DSM and retrieve secrets at build execution time.
  */
 public class ClientCredentials extends BaseStandardCredentials implements FortanixCredentials {
 
-    private final @Nonnull
-    Secret apiKey;
+    private final @Nonnull Secret apiKey;
 
-    private final @Nonnull
-    String apiEndpoint;
+    private final @Nonnull String apiEndpoint;
 
     @DataBoundConstructor
-    public ClientCredentials(@CheckForNull CredentialsScope scope, @CheckForNull String id, @CheckForNull String description, @Nonnull String apiEndpoint, @Nonnull Secret apiKey) {
+    public ClientCredentials(
+            @CheckForNull CredentialsScope scope,
+            @CheckForNull String id,
+            @CheckForNull String description,
+            @Nonnull String apiEndpoint,
+            @Nonnull Secret apiKey) {
         super(scope, id, description);
         this.apiKey = apiKey;
         this.apiEndpoint = apiEndpoint;
@@ -67,7 +65,6 @@ public class ClientCredentials extends BaseStandardCredentials implements Fortan
         public String getDisplayName() {
             return "Fortanix DSM Client Credentials";
         }
-
     }
 
     private static final Logger LOGGER = Logger.getLogger(ClientCredentials.class.getName());
