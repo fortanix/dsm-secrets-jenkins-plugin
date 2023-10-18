@@ -10,36 +10,28 @@ import com.cloudbees.plugins.credentials.CredentialsMatchers;
 import com.cloudbees.plugins.credentials.CredentialsProvider;
 import com.cloudbees.plugins.credentials.domains.DomainRequirement;
 import com.cloudbees.plugins.credentials.matchers.IdMatcher;
-
 import com.fortanix.jenkins.configuration.FortanixConfigResolver;
 import com.fortanix.jenkins.configuration.FortanixConfiguration;
 import com.fortanix.jenkins.credentials.FortanixCredentials;
 import com.fortanix.jenkins.model.FortanixSecret;
-import com.fortanix.jenkins.SecretService;
-
-import com.fortanix.sdkms.v1.ApiException;
-
 import hudson.*;
 import hudson.model.AbstractProject;
 import hudson.model.Run;
 import hudson.model.TaskListener;
 import hudson.security.ACL;
 import hudson.tasks.BuildWrapperDescriptor;
-import jenkins.tasks.SimpleBuildWrapper;
-import org.apache.commons.lang.StringUtils;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.DataBoundSetter;
-
-import javax.annotation.CheckForNull;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.security.ProviderException;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
+import javax.annotation.CheckForNull;
+import jenkins.tasks.SimpleBuildWrapper;
+import org.apache.commons.lang.StringUtils;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.DataBoundSetter;
 
 public class FortanixBuildWrapper extends SimpleBuildWrapper {
 
@@ -57,7 +49,14 @@ public class FortanixBuildWrapper extends SimpleBuildWrapper {
     }
 
     @Override
-    public void setUp(Context context, Run<?, ?> build, FilePath filePath, Launcher launcher, TaskListener taskListener, EnvVars envVars) throws IOException, InterruptedException {
+    public void setUp(
+            Context context,
+            Run<?, ?> build,
+            FilePath filePath,
+            Launcher launcher,
+            TaskListener taskListener,
+            EnvVars envVars)
+            throws IOException, InterruptedException {
         LOGGER.log(Level.ALL, "Setup");
         PrintStream logger = taskListener.getLogger();
         updateConfig(build);
@@ -85,7 +84,7 @@ public class FortanixBuildWrapper extends SimpleBuildWrapper {
 
     @DataBoundSetter
     public void setConfiguration(FortanixConfiguration configuration) {
-        LOGGER.log(Level.ALL, "Set Configuration: "+configuration);
+        LOGGER.log(Level.ALL, "Set Configuration: " + configuration);
         this.configuration = configuration;
     }
 
@@ -94,14 +93,14 @@ public class FortanixBuildWrapper extends SimpleBuildWrapper {
         return configuration;
     }
 
-
     private FortanixCredentials getCredentials(Run build) {
         String id = getConfiguration().getftxCredentialId();
-        LOGGER.log(Level.INFO, "Get Credentials ID: "+ id);
+        LOGGER.log(Level.INFO, "Get Credentials ID: " + id);
         if (StringUtils.isBlank(id)) {
             throw new RuntimeException("The credential id was not configured - please specify the credentials to use.");
         }
-        List<FortanixCredentials> credentials = CredentialsProvider.lookupCredentials(FortanixCredentials.class, build.getParent(), ACL.SYSTEM, Collections.<DomainRequirement>emptyList());
+        List<FortanixCredentials> credentials = CredentialsProvider.lookupCredentials(
+                FortanixCredentials.class, build.getParent(), ACL.SYSTEM, Collections.<DomainRequirement>emptyList());
         FortanixCredentials credential = CredentialsMatchers.firstOrNull(credentials, new IdMatcher(id));
 
         if (credential == null) {
@@ -121,7 +120,7 @@ public class FortanixBuildWrapper extends SimpleBuildWrapper {
             for (FortanixSecret secret : this.fortanixSecrets) {
                 String secretVal = secretService.getSecret(secret.getPath());
                 String env = secret.getEnvVar();
-                LOGGER.log(Level.INFO, "Env: "+env);
+                LOGGER.log(Level.INFO, "Env: " + env);
                 context.env(env, secretVal);
             }
             secretService.shutdown();

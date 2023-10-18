@@ -9,14 +9,11 @@ package com.fortanix.jenkins.credentials;
 import com.cloudbees.plugins.credentials.CredentialsNameProvider;
 import com.cloudbees.plugins.credentials.NameWith;
 import com.cloudbees.plugins.credentials.common.StandardCredentials;
-
 import com.fortanix.sdkms.v1.ApiClient;
-
 import javax.annotation.Nonnull;
-import java.io.Serializable;
 
 @NameWith(FortanixCredentials.NameProvider.class)
-public interface FortanixCredentials extends StandardCredentials, Serializable {
+public interface FortanixCredentials extends StandardCredentials {
 
     ApiClient getDSMClient();
 
