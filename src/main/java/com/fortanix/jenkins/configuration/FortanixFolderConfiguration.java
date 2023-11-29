@@ -12,11 +12,10 @@ import com.cloudbees.hudson.plugins.folder.AbstractFolderPropertyDescriptor;
 import hudson.Extension;
 import hudson.model.Item;
 import hudson.model.ItemGroup;
-import org.kohsuke.stapler.DataBoundConstructor;
-
-import javax.annotation.Nonnull;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.annotation.Nonnull;
+import org.kohsuke.stapler.DataBoundConstructor;
 
 public class FortanixFolderConfiguration extends AbstractFolderProperty<AbstractFolder<?>> {
     private final FortanixConfiguration configuration;
@@ -35,8 +34,7 @@ public class FortanixFolderConfiguration extends AbstractFolderProperty<Abstract
     }
 
     @Extension
-    public static class DescriptorImpl extends AbstractFolderPropertyDescriptor {
-    }
+    public static class DescriptorImpl extends AbstractFolderPropertyDescriptor {}
 
     @Extension(ordinal = 100)
     public static class ForJob extends FortanixConfigResolver {
@@ -46,7 +44,8 @@ public class FortanixFolderConfiguration extends AbstractFolderProperty<Abstract
             LOGGER.log(Level.ALL, "forJob");
             FortanixConfiguration resultingConfig = null;
             for (ItemGroup g = job.getParent(); g instanceof AbstractFolder; g = ((AbstractFolder) g).getParent()) {
-                FortanixFolderConfiguration folderProperty = ((AbstractFolder<?>) g).getProperties().get(FortanixFolderConfiguration.class);
+                FortanixFolderConfiguration folderProperty =
+                        ((AbstractFolder<?>) g).getProperties().get(FortanixFolderConfiguration.class);
                 if (folderProperty == null) {
                     continue;
                 }

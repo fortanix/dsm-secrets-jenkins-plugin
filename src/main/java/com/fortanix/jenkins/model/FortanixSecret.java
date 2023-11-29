@@ -11,8 +11,6 @@ import hudson.model.AbstractDescribableImpl;
 import hudson.model.Descriptor;
 import org.kohsuke.stapler.DataBoundConstructor;
 
-import java.util.List;
-
 public class FortanixSecret extends AbstractDescribableImpl<FortanixSecret> {
 
     private String path;

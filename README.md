@@ -24,6 +24,36 @@ This credential can be specified at either the global, or project level. Separat
 Fortanix DSM Apps can be mapped through the `API Key` to maintain role-based access
 controls (RBAC) for projects authorized to access those secrets.
 
+### Scripted pipeline
+
+This script also can be used on scripted pipelines using the **withCredentials** instruction.
+
+
+1.  With defaults, which will read specified **path** secret into the predefined environment variables: 
+    `FTX_VAR`.
+    
+You just need to specify the `path` variable.
+
+Sample pipeline code:
+
+ ```groovy
+ withCredentials([fortanixDsmSecret(credentialsId: 'credentials_id',
+                                     path: 'MY_SECRET_NAME')]) {
+     sh 'echo $FTX_VAR | base64 -d'
+ }
+ ```
+
+2.  With custom name, where you can control the name of the variables. Sample pipeline code:
+
+ ```groovy
+ withCredentials([fortanixDsmSecret(credentialsId: 'credentials_id',
+                                     path: 'MY_SECRET_NAME',
+                                     environmentVariable: 'SSH_KEY',
+                                     )]) {
+     sh 'echo $SSH_KEY | base64 -d'
+ }
+ ```
+
 ## Release notes
 
 ### 1.0
