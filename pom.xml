@@ -162,7 +162,7 @@
     <dependency>
       <groupId>org.jenkins-ci.plugins.workflow</groupId>
       <artifactId>workflow-aggregator</artifactId>
-      <version>600.v64c23868a_132</version>
+      <version>596.v8c21c963d92d</version>
       <scope>test</scope>
       <exclusions>
         <exclusion>
