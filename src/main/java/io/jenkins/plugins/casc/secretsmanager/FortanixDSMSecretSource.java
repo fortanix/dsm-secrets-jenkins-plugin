@@ -26,11 +26,15 @@ public class FortanixDSMSecretSource extends SecretSource {
 
     private transient SecurityObjectsApi client = null;
 
-    private final Pattern UUID_REGEX =
-            Pattern.compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
+    private final Pattern UUID_REGEX = Pattern
+            .compile("^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$");
 
     @Override
     public Optional<String> reveal(String id) throws IOException {
+        if (getServiceEndpoint() == null) {
+            LOG.info("No DSM url found, skipping jcasc secret resolution");
+            return Optional.empty();
+        }
         try {
             SobjectDescriptor soDescriptor = UUID_REGEX.matcher(id).matches()
                     ? new SobjectDescriptor().kid(id)
@@ -46,10 +50,14 @@ public class FortanixDSMSecretSource extends SecretSource {
 
     @Override
     public void init() {
-        try {
-            client = createClient();
-        } catch (ApiException e) {
-            e.printStackTrace();
+        if (getServiceEndpoint() == null) {
+            LOG.info("No DSM url found, skipping jcasc secret init");
+        } else {
+            try {
+                client = createClient();
+            } catch (ApiException e) {
+                e.printStackTrace();
+            }
         }
     }
 
