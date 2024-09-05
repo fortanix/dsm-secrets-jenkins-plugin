@@ -32,7 +32,8 @@ This script also can be used on scripted pipelines using the **withCredentials**
 1.  With defaults, which will read specified **path** secret into the predefined environment variables: 
     `FTX_VAR`.
     
-You just need to specify the `path` variable.
+You just need to specify the `path` variable. 
+
 
 Sample pipeline code:
 
@@ -53,6 +54,7 @@ Sample pipeline code:
      sh 'echo $SSH_KEY | base64 -d'
  }
  ```
+NOTE: if path variable/ custom env variable not base64 encoded, then you can remove `| base64 -d` from echo statement.
 
 ## Release notes
 
